@@ -692,6 +692,9 @@ class BigQueryServicesImpl implements BigQueryServices {
               || i == rowsToPublish.size() - 1) {
             TableDataInsertAllRequest content = new TableDataInsertAllRequest();
             content.setRows(rows);
+            // Additional settings to prevent insert errors and always insert where possible
+            content.setIgnoreUnknownValues(true);
+            content.setSkipInvalidRows(true);
 
             final Bigquery.Tabledata.InsertAll insert = client.tabledata()
                 .insertAll(ref.getProjectId(), ref.getDatasetId(), ref.getTableId(),
