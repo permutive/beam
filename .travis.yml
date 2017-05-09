@@ -1,6 +1,8 @@
 language: java
 jdk:
   - oraclejdk7
+script:
+  - mvn install -DskipTests=true -Dmdep.analyze.skip=true
 after_success:
   - echo "<settings><servers><server><id>permutive-internal-repo</id><username>\${env.S3_LIBRARIES_KEY}</username><password>\${env.S3_LIBRARIES_SECRET}</password></server></servers></settings>" > ~/settings.xml
-  - mvn deploy --settings ~/settings.xml
+  - mvn deploy -DskipTests --settings ~/settings.xml
