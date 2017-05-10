@@ -29,6 +29,7 @@ import com.google.api.client.util.Sleeper;
 import com.google.api.services.bigquery.Bigquery;
 import com.google.api.services.bigquery.model.Dataset;
 import com.google.api.services.bigquery.model.DatasetReference;
+import com.google.api.services.bigquery.model.ErrorProto;
 import com.google.api.services.bigquery.model.Job;
 import com.google.api.services.bigquery.model.JobConfiguration;
 import com.google.api.services.bigquery.model.JobConfigurationExtract;
@@ -50,10 +51,13 @@ import com.google.cloud.hadoop.util.ApiErrorExtractor;
 import com.google.cloud.hadoop.util.ChainingHttpRequestInitializer;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -73,7 +77,6 @@ import org.joda.time.Duration;
 import org.joda.time.Instant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 /**
  * An implementation of {@link BigQueryServices} that actually communicates with the cloud BigQuery
  * service.
@@ -731,6 +734,9 @@ class BigQueryServicesImpl implements BigQueryServices {
                             throw new IOException(
                                 "Interrupted while waiting before retrying insertAll");
                           }
+                        } else if (new ApiErrorExtractor().isClientError(e)) {
+                          LOG.warn("BigQuery insertAll encountered client error, skipping", e);
+                          return ImmutableList.of();
                         } else {
                           throw e;
                         }
