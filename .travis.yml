@@ -1,8 +1,9 @@
 language: java
 jdk:
   - oraclejdk7
-script:
-  - mvn install -DskipTests=true -Dmdep.analyze.skip=true
+install:
+  - mvn -pl '!:beam-sdks-java-javadoc' install -DskipTests=true -Dmdep.analyze.skip=true -Dmaven.javadoc.skip=true -Drat.skip=true -B -V
+script: true
 after_success:
   - echo "<settings><servers><server><id>permutive-internal-repo</id><username>\${env.S3_LIBRARIES_KEY}</username><password>\${env.S3_LIBRARIES_SECRET}</password></server></servers></settings>" > ~/settings.xml
-  - mvn deploy -DskipTests -Dmdep.analyze.skip=true --settings ~/settings.xml
+  - mvn -pl '!:beam-sdks-java-javadoc' deploy -DskipTests -Dmdep.analyze.skip=true -Dmaven.javadoc.skip=true -Drat.skip=true --settings ~/settings.xml
