@@ -767,6 +767,9 @@ class BigQueryServicesImpl implements BigQueryServices {
                   if (retryIds != null) {
                     retryIds.add(idsToPublish.get(errorIndex));
                   }
+                } else {
+                  LOG.warn("BigQuery insertAll encountered error, "
+                    + "skipping due to retry policy: " + error);
                 }
               }
             }
