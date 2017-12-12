@@ -38,6 +38,10 @@ public abstract class InsertRetryPolicy implements Serializable {
     public Context(TableDataInsertAllResponse.InsertErrors errors) {
       this.errors = errors;
     }
+
+    public TableDataInsertAllResponse.InsertErrors getErrors() {
+      return errors;
+    }
   }
 
   // A list of known persistent errors for which retrying never helps.
