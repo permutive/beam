@@ -48,7 +48,7 @@
     <connection>scm:git:ssh://git@github.com:permutive/beam.git</connection>
     <developerConnection>scm:git:ssh://git@github.com:permutive/beam.git</developerConnection>
     <url>scm:git:ssh://git@github.com:permutive/beam.git</url>
-    <tag>release-2.2.0</tag>
+    <tag>release-2.2.0-permutive</tag>
   </scm>
 
   <issueManagement>
