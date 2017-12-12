@@ -34,7 +34,7 @@
   <url>http://beam.apache.org/</url>
   <inceptionYear>2016</inceptionYear>
 
-  <version>2.2.0-SNAPSHOT</version>
+  <version>2.2.0-permutive</version>
 
   <licenses>
     <license>
@@ -48,7 +48,7 @@
     <connection>scm:git:ssh://git@github.com/permutive/beam.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/permutive/beam.git</developerConnection>
     <url>scm:git:ssh://git@github.com/permutive/beam.git</url>
-    <tag>release-2.2.0-permutive</tag>
+    <tag>2.2.0-permutive</tag>
   </scm>
 
   <issueManagement>
