@@ -698,6 +698,8 @@ class BigQueryServicesImpl implements BigQueryServices {
               || i == rowsToPublish.size() - 1) {
             TableDataInsertAllRequest content = new TableDataInsertAllRequest();
             content.setRows(rows);
+            content.setIgnoreUnknownValues(true);
+            content.setSkipInvalidRows(true);
 
             final Bigquery.Tabledata.InsertAll insert = client.tabledata()
                 .insertAll(ref.getProjectId(), ref.getDatasetId(), ref.getTableId(),
@@ -721,6 +723,9 @@ class BigQueryServicesImpl implements BigQueryServices {
                               throw new IOException(
                                   "Interrupted while waiting before retrying insertAll");
                             }
+                          } else if (new ApiErrorExtractor().isClientError(e)) {
+                            LOG.warn("BigQuery insertAll encountered client error, skipping", e);
+                            return ImmutableList.of();
                           } else {
                             throw e;
                           }
@@ -757,6 +762,8 @@ class BigQueryServicesImpl implements BigQueryServices {
                 }
               } else {
                 failedInserts.add(rowsToPublish.get(errorIndex));
+                LOG.warn("BigQuery insertAll encountered error, "
+                        + "skipping due to retry policy: " + error);
               }
             }
           }

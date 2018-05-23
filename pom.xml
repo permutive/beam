@@ -45,16 +45,27 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:https://gitbox.apache.org/repos/asf/beam.git</connection>
-    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/beam.git</developerConnection>
-    <url>https://gitbox.apache.org/repos/asf?p=beam.git;a=summary</url>
-    <tag>release-2.4.0</tag>
+    <connection>scm:git:ssh://git@github.com/permutive/beam.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/permutive/beam.git</developerConnection>
+    <url>scm:git:ssh://git@github.com/permutive/beam.git</url>
+    <tag>release-2.4.0-permutive</tag>
   </scm>
 
   <issueManagement>
     <system>jira</system>
     <url>https://issues.apache.org/jira/browse/BEAM</url>
   </issueManagement>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>permutive-internal-repo</id>
+      <url>http://artifactory.prmutv.com/artifactory/permutive-libraries</url>
+    </snapshotRepository>
+    <repository>
+      <id>permutive-internal-repo</id>
+      <url>http://artifactory.prmutv.com/artifactory/permutive-libraries</url>
+    </repository>
+  </distributionManagement>
 
   <mailingLists>
     <mailingList>
